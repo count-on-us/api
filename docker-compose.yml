@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  main:
+    container_name: main
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+      - 9229:9229
+    command: yarn start:dev
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:4.2
+    networks:
+      - webnet
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+networks:
+  webnet:
+volumes:
+  mongodata:
