@@ -1,7 +1,7 @@
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
   secret: process.env.SECRET,
-  databasse: {
+  database: {
     type: 'postgres',
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
