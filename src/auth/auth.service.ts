@@ -32,6 +32,6 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.usersService.findById(payload.id);
+    return await this.usersService.findOne(payload.id);
   }
 }
