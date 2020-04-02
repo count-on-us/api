@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,17 +11,14 @@ import configuration from './config/configuration';
   imports: [
     AuthModule,
     UsersModule,
-    MongooseModule.forRootAsync({
-      imports: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('mongoURI'),
-      }),
-      inject: [ConfigService],
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration]
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => configService.get('database'),
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
