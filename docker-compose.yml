@@ -18,20 +18,22 @@ services:
     networks:
       - webnet
     depends_on:
-      - mongo
-  mongo:
-    container_name: mongo
-    image: mongo:4.2
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:12
     networks:
       - webnet
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      PG_DATA: /var/lib/postgresql/data
     ports:
-      - 27017:27017
+      - 5432:5432
     volumes:
-      - mongodata:/data/db
+      - pgdata:/var/lib/postgresql/data
 networks:
   webnet:
 volumes:
-  mongodata:
+  pgdata:
