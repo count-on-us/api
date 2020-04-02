@@ -1,27 +1,48 @@
+import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { PassportLocalModel } from 'mongoose';
+import { IUser } from '../users/interfaces/user.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { debug } from 'console';
+import { RegistrationStatus } from './interfaces/registration-status.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService
-  ) {}
+    private readonly usersService: UsersService,
+    @InjectModel('User') private readonly userModel: PassportLocalModel<IUser>
+  ) { }
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(email);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
+  async register(user: IUser) {
+    let status: RegistrationStatus = { success: true, message: 'user register' };
+    await this.userModel.register(new this.userModel({username: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName}), user.password, (err) => {
+      if (err) {
+        debug(err);
+        status = { success: false, message: err };
+      }
+    });
+    return status;
   }
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.userId };
+  createToken(user) {
+    const expiresIn = 3600;
+
+    const accessToken = jwt.sign({ id: user.id,
+      email: user.username,
+      firstname: user.firstName,
+      lastname: user.lastName }, 'ILovePokemon', { expiresIn });
+
     return {
-      access_token: this.jwtService.sign(payload),
+      expiresIn,
+      accessToken,
     };
+  }
+
+  async validateUser(payload: JwtPayload): Promise<any> {
+    return await this.usersService.findById(payload.id);
   }
 }
