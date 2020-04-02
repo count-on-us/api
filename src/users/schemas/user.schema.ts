@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import * as passportLocalMongoose from 'passport-local-mongoose';
 
 export const UserSchema = new mongoose.Schema({
   name: String,
@@ -8,4 +7,3 @@ export const UserSchema = new mongoose.Schema({
   phone: String,
   password: String,
 });
-UserSchema.plugin(passportLocalMongoose);
