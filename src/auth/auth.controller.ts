@@ -22,7 +22,7 @@ export class AuthController {
     @Post('login')
     @UseGuards(AuthGuard('local'))
     public async login(@Response() res, @Body() login: LoginUserDto){
-        return await this.usersService.findOne({ username: login.email}).then(user => {
+        return await this.usersService.findOne(login.email).then(user => {
             if (!user) {
                 res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
                     message: 'User Not Found',

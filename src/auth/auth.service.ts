@@ -1,8 +1,5 @@
 import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { PassportLocalModel } from 'mongoose';
-import { debug } from 'console';
 import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interfaces/user.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
@@ -12,19 +9,11 @@ import { RegistrationStatus } from './interfaces/registration-status.interface';
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    @InjectModel('User') private readonly userModel: PassportLocalModel<IUser>
   ) { }
 
   async register(user: IUser) {
-    let status: RegistrationStatus = { success: true, message: 'user register' };
-    await this.userModel.register(new this.userModel({username: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName}), user.password, (err) => {
-      if (err) {
-        debug(err);
-        status = { success: false, message: err };
-      }
-    });
+    const status: RegistrationStatus = { success: true, message: 'user register' };
+
     return status;
   }
 

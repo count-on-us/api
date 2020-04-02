@@ -1,51 +1,24 @@
-import { PassportLocalModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { debug } from 'console';
-import { IUsersService } from './interfaces/user-service.interface';
-import { IUser } from './interfaces/user.interface';
-import { CreateUserDto } from './dtos/create-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
 
 @Injectable()
-export class UsersService implements IUsersService {
-  constructor(@InjectModel('User') private readonly userModel: PassportLocalModel<IUser>) {}
+export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-  async findAll(): Promise<IUser[]> {
-    return await this.userModel.find().exec();
+  findAll(): Promise<User[]> {
+    return this.usersRepository.find();
   }
 
-  async findOne(options: object): Promise<IUser> {
-    return await this.userModel.findOne(options).exec();
+  findOne(id: string): Promise<User> {
+    return this.usersRepository.findOne(id);
   }
 
-  async findById(ID: number): Promise<IUser> {
-    return await this.userModel.findById(ID).exec();
-  }
-
-  async create(createUserDto: CreateUserDto): Promise<IUser> {
-    const createdUser = new this.userModel(createUserDto);
-    return await createdUser.save();
-  }
-
-  async update(ID: number, newValue: IUser): Promise<IUser> {
-    const user = await this.userModel.findById(ID).exec();
-
-    if (!user._id) {
-      debug('user not found');
-    }
-
-    await this.userModel.findByIdAndUpdate(ID, newValue).exec();
-    return await this.userModel.findById(ID).exec();
-  }
-
-  async delete(ID: number): Promise<string> {
-    try {
-      await this.userModel.findByIdAndRemove(ID).exec();
-      return 'The user has been deleted';
-    }
-    catch (err) {
-      debug(err);
-      return 'The user could not be deleted';
-    }
+  async remove(id: string): Promise<void> {
+    await this.usersRepository.delete(id);
   }
 }
