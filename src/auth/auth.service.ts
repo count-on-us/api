@@ -1,11 +1,11 @@
 import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { PassportLocalModel } from 'mongoose';
-import { IUser } from '../users/interfaces/user.interface';
 import { InjectModel } from '@nestjs/mongoose';
+import { PassportLocalModel } from 'mongoose';
 import { debug } from 'console';
+import { UsersService } from '../users/users.service';
+import { IUser } from '../users/interfaces/user.interface';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
 
 @Injectable()
