@@ -3,7 +3,7 @@ import { LoginUserDto } from '../users/dtos/login-user.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../users/users.service';
-import { IUser } from 'src/users/interfaces/user.interface';
+import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +11,7 @@ export class AuthController {
                 private readonly usersService: UsersService) {}
 
     @Post('register')
-    public async register(@Response() res, @Body() user: IUser){
+    public async register(@Response() res, @Body() user: CreateUserDto){
         const result = await this.authService.register(user);
         if (!result.success){
             return res.status(HttpStatus.BAD_REQUEST).json(result);
