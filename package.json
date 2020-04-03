@@ -29,6 +29,7 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.0.0",
+    "bcrypt": "^4.0.1",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "passport-http-bearer": "^1.0.1",
