@@ -33,6 +33,10 @@ export class AuthService {
     };
   }
 
+  async validateUserToken(payload: JwtPayload): Promise<IUser> {
+    return await this.usersService.findOne(payload.id);
+  }
+
   async validateUser(email: string, password: string): Promise<IUser> {
     const user = await this.usersService.findByEmail(email);
     if (user && user.comparePassword(password)) {
