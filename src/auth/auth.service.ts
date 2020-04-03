@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interfaces/user.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
@@ -10,6 +10,8 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
   ) { }
+
+  private readonly logger = new Logger(AuthService.name);
 
   async register(user: IUser) {
     const status: RegistrationStatus = { success: true, message: 'user register' };
@@ -31,7 +33,12 @@ export class AuthService {
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.usersService.findOne(payload.id);
+  async validateUser(email: string, password: string): Promise<IUser> {
+    const user = await this.usersService.findByEmail(email);
+    if (user && user.comparePassword(password)) {
+      this.logger.log('password check success');
+      return  user;
+    }
+    return null;
   }
 }
