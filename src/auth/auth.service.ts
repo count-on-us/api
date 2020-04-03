@@ -4,6 +4,7 @@ import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interfaces/user.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
+import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,8 +14,17 @@ export class AuthService {
 
   private readonly logger = new Logger(AuthService.name);
 
-  async register(user: IUser) {
-    const status: RegistrationStatus = { success: true, message: 'user register' };
+  async register(user: CreateUserDto) {
+    let status: RegistrationStatus = {
+      success: true,
+      message: 'user register',
+    };
+
+    try {
+      await this.usersService.register(user);
+    } catch (err) {
+      status = { success: false, message: err };
+    }
 
     return status;
   }
