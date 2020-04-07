@@ -9,6 +9,8 @@ import { IUser } from './interfaces/user.interface';
 
 @Entity()
 export class User {
+  private readonly saltRounds: number;
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -29,7 +31,12 @@ export class User {
 
   @BeforeInsert()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    try {
+      const salt = await bcrypt.genSalt(this.saltRounds);
+      this.password = await bcrypt.hash(this.password, salt);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 
   async comparePassword(attempt: string): Promise<boolean> {
