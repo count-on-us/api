@@ -11,16 +11,16 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  async findAll(): Promise<User[]> {
+    return await this.usersRepository.find();
   }
 
   async findByEmail(userEmail: string): Promise<User> {
     return await this.usersRepository.findOne({ email: userEmail });
   }
 
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id);
+  async findOne(id: string): Promise<User> {
+    return await this.usersRepository.findOne(id);
   }
 
   async remove(id: string): Promise<void> {
@@ -36,7 +36,7 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    user = await this.usersRepository.create(userDto);
+    user = this.usersRepository.create(userDto);
     return await this.usersRepository.save(user);
   }
 }
