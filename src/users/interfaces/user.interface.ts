@@ -5,6 +5,6 @@ export interface IUser {
   readonly profession: string;
   readonly licenseNumber: string;
   readonly phone: string;
-  readonly isActive: string;
+  readonly isActive: boolean;
   readonly password: string;
 }
