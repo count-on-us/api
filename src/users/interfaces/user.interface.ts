@@ -6,5 +6,4 @@ export interface IUser {
   readonly licenseNumber: string;
   readonly phone: string;
   readonly isActive: boolean;
-  readonly password: string;
 }
