@@ -44,7 +44,9 @@ export class AuthService {
   }
 
   async validateUserToken(payload: JwtPayload): Promise<IUser> {
-    return await this.usersService.findOne(payload.id);
+    const user = await this.usersService.findOne(payload.id);
+
+    return user.toResponseObject();
   }
 
   async validateUser(email: string, password: string): Promise<IUser> {
