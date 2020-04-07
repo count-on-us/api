@@ -3,7 +3,7 @@ export class CreateUserDto {
   readonly name: string;
   readonly email: string;
   readonly profession: string;
-  readonly concilRegister: string;
+  readonly licenseNumber: string;
   readonly phone: string;
   readonly password: string;
 }
