@@ -21,10 +21,16 @@ export class User {
   password: string;
 
   @Column()
-  firstName: string;
+  name: string;
 
   @Column()
-  lastName: string;
+  profession: string;
+
+  @Column()
+  licenseNumber: string;
+
+  @Column()
+  phone: string;
 
   @Column({ default: true })
   isActive: boolean;
@@ -44,12 +50,24 @@ export class User {
   }
 
   toResponseObject(): IUser {
-    const { id, firstName, lastName, email } = this;
+    const {
+      id,
+      name,
+      email,
+      profession,
+      licenseNumber,
+      phone,
+      isActive
+    } = this;
+
     const responseObject: IUser = {
       id,
-      firstName,
-      lastName,
+      name,
       email,
+      profession,
+      licenseNumber,
+      phone,
+      isActive,
     };
 
     return responseObject;
