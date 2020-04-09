@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import configuration from './config/configuration';
 import { User } from './users/user.entity';
+import { ParticipantModule } from './participant/participant.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { User } from './users/user.entity';
         entities: [User],
       }),
       inject: [ConfigService],
-    })
+    }),
+    ParticipantModule
   ],
   controllers: [AppController],
   providers: [AppService],
