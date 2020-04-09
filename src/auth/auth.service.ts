@@ -5,11 +5,13 @@ import { IUser } from '../users/interfaces/user.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
+    private readonly configService: ConfigService
   ) { }
 
   private readonly logger = new Logger(AuthService.name);
@@ -35,7 +37,7 @@ export class AuthService {
     const accessToken = jwt.sign({ id: user.id,
       email: user.username,
       firstname: user.firstName,
-      lastname: user.lastName }, 'ILovePokemon', { expiresIn });
+      lastname: user.lastName }, this.configService.get('secret'), { expiresIn });
 
     return {
       expiresIn,
