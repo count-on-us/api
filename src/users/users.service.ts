@@ -3,9 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { IUsersService } from './interfaces/user-service.interface';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
@@ -19,11 +21,11 @@ export class UsersService {
     return await this.usersRepository.findOne({ email: userEmail });
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: number): Promise<User> {
     return await this.usersRepository.findOne(id);
   }
 
-  async remove(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
 
@@ -32,7 +34,20 @@ export class UsersService {
     let user = await this.usersRepository.findOne({ where: { email } });
     if (user) {
       throw new HttpException(
-        'User already exists',
+        'This email is already taken.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    user = this.usersRepository.create(userDto);
+    return await this.usersRepository.save(user);
+  }
+
+  async update(id: number, userDto: UpdateUserDto): Promise<User> {
+    const { email } = userDto;
+    let user = await this.usersRepository.findOne({ where: { email } });
+    if (user.id !== id) {
+      throw new HttpException(
+        'This email is already taken.',
         HttpStatus.BAD_REQUEST,
       );
     }

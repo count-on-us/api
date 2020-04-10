@@ -1,10 +1,12 @@
 import { IUser } from './user.interface';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UpdateUserDto } from '../dtos/update-user.dto';
 
 export interface IUsersService {
   findAll(): Promise<IUser[]>;
-  findById(ID: number): Promise<IUser | null>;
-  findOne(options: object): Promise<IUser | null>;
-  create(user: IUser): Promise<IUser>;
-  update(ID: number, newValue: IUser): Promise<IUser | null>;
-  delete(ID: number): Promise<string>;
+  findByEmail(email: string): Promise<IUser | null>;
+  findOne(id: number): Promise<IUser | null>;
+  register(user: CreateUserDto): Promise<IUser>;
+  update(id: number, newUser: UpdateUserDto): Promise<IUser | null>;
+  delete(id: number): Promise<void>;
 }
