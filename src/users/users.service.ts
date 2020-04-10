@@ -34,7 +34,7 @@ export class UsersService implements IUsersService {
     let user = await this.usersRepository.findOne({ where: { email } });
     if (user) {
       throw new HttpException(
-        'User already exists',
+        'This email is already taken.',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -47,7 +47,7 @@ export class UsersService implements IUsersService {
     let user = await this.usersRepository.findOne({ where: { email } });
     if (user.id !== id) {
       throw new HttpException(
-        'User already exists',
+        'This email is already taken.',
         HttpStatus.BAD_REQUEST,
       );
     }
