@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import configuration from './config/configuration';
 import { User } from './users/user.entity';
 import { ParticipantModule } from './participant/participant.module';
+import { Participant } from './participant/participant.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { ParticipantModule } from './participant/participant.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         ...configService.get('database'),
-        entities: [User],
+        entities: [User, Participant],
       }),
       inject: [ConfigService],
     }),
