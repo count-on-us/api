@@ -28,7 +28,7 @@ export class ParticipantsService implements IParticipantService {
   async register(participant: CreateParticipantDto) {
     let status: RegistrationStatus = {
       success: true,
-      message: 'user register',
+      message: 'participant register',
     };
 
     try {
