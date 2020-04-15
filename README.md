@@ -14,7 +14,7 @@ You can run this project locally, But you will need a PostgresSQL instance runni
 Copy the `.env.example` file to `.env`:
 
 ```bash
-$ cp .env.exmaple .env
+$ cp .env.example .env
 ```
 
 By default the server will run on port `3000`. The debug service can be accessed on the port `9229`.
