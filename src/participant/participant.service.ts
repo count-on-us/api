@@ -5,6 +5,7 @@ import { Participant } from './participant.entity';
 import { IParticipantService } from './interfaces/participant-service.interface';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
 import { UpdateParticipantDto } from './dtos/update-user.dto';
+import { RegistrationStatus } from './interfaces/registration-status.interface';
 @Injectable()
 export class ParticipantService implements IParticipantService {
   constructor(
@@ -22,6 +23,21 @@ export class ParticipantService implements IParticipantService {
 
   async findOne(id: number): Promise<Participant> {
     return await this.participantRepository.findOne(id);
+  }
+
+  async register(participant: CreateParticipantDto) {
+    let status: RegistrationStatus = {
+      success: true,
+      message: 'user register',
+    };
+
+    try {
+      await this.create(participant);
+    } catch (err) {
+      status = { success: false, message: err };
+    }
+
+    return status;
   }
 
   async create(participantDto: CreateParticipantDto): Promise<Participant> {
