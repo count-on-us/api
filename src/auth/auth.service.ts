@@ -32,12 +32,15 @@ export class AuthService {
   }
 
   createToken(user) {
-    const expiresIn = 3600;
+    const expiresIn = '60d';
 
     const accessToken = jwt.sign({ id: user.id,
       email: user.username,
       firstname: user.firstName,
-      lastname: user.lastName }, this.configService.get('secret'), { expiresIn });
+      lastname: user.lastName },
+      this.configService.get('secret'),
+      { expiresIn }
+    );
 
     return {
       expiresIn,
