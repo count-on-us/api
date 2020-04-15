@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -7,35 +9,58 @@
 
 ## Installation
 
+You can run this project locally, But you will need a PostgresSQL instance running for you. Here are the steps for you to setup the project in your machine.
+
+Copy the `.env.example` file to `.env`:
+
 ```bash
-$ npm install
+$ cp .env.exmaple .env
+```
+
+By default the server will run on port `3000`. The debug service can be accessed on the port `9229`.
+
+Change the variables as you please.
+
+Install de dependencies.
+
+```bash
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
-## Test
+Alternatively you can run this project in a Docker environment. You will need [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
+
+To do this you simple run the following commands:
 
 ```bash
-# unit tests
-$ npm run test
+# build the image - this may take several minutes
+$ docker-compose build
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# run the environment
+$ docker-compose up
 ```
+
+I recommend you to not run in detached mode, the NestJS logs are very helpful when you are debugging.
+
+You can still install the JavaScript dependencies in your machine, but you will need to rebuild the image running the following command:
+
+```bash
+$ docker-compose build -V
+```
+
+That will install the dependencies inside the container.
 
 ## Support
 
@@ -43,4 +68,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-  Nest is [MIT licensed](LICENSE).
+Nest is [MIT licensed](LICENSE).
