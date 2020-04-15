@@ -5,16 +5,16 @@ import {
   Body,
   HttpStatus
 } from '@nestjs/common';
-import { ParticipantService } from './participant.service';
+import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
 
-@Controller('participant')
-export class ParticipantController {
-  constructor(private readonly participantService: ParticipantService) {}
+@Controller('participants')
+export class ParticipantsController {
+  constructor(private readonly participantsService: ParticipantsService) {}
 
   @Post()
   public async register(@Response() res, @Body() participant: CreateParticipantDto) {
-    const result = await this.participantService.register(participant);
+    const result = await this.participantsService.register(participant);
 
     if (!result.success){
       return res.status(HttpStatus.BAD_REQUEST).json(result);

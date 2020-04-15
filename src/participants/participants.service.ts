@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Participant } from './participant.entity';
 import { IParticipantService } from './interfaces/participant-service.interface';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
-import { UpdateParticipantDto } from './dtos/update-user.dto';
+import { UpdateParticipantDto } from './dtos/update-participant.dto';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
 @Injectable()
-export class ParticipantService implements IParticipantService {
+export class ParticipantsService implements IParticipantService {
   constructor(
     @InjectRepository(Participant)
     private participantRepository: Repository<Participant>,

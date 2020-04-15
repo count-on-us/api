@@ -1,6 +1,6 @@
 import { IParticipant } from './participant.interface';
 import { CreateParticipantDto } from '../dtos/create-participant.dto';
-import { UpdateParticipantDto } from '../dtos/update-user.dto';
+import { UpdateParticipantDto } from '../dtos/update-participant.dto';
 import { RegistrationStatus } from './registration-status.interface';
 
 export interface IParticipantService {
