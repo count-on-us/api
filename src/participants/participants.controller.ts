@@ -4,15 +4,18 @@ import {
   Response,
   Body,
   HttpStatus,
-  Get
+  Get,
+  UseGuards,
 } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('participants')
 export class ParticipantsController {
   constructor(private readonly participantsService: ParticipantsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   public async index(@Response() res) {
     const participants = await this.participantsService.findAll();
