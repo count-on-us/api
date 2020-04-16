@@ -3,7 +3,8 @@ import {
   Post,
   Response,
   Body,
-  HttpStatus
+  HttpStatus,
+  Get
 } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
@@ -11,6 +12,13 @@ import { CreateParticipantDto } from './dtos/create-participant.dto';
 @Controller('participants')
 export class ParticipantsController {
   constructor(private readonly participantsService: ParticipantsService) {}
+
+  @Get()
+  public async index(@Response() res) {
+    const participants = await this.participantsService.findAll();
+
+    return res.json(participants);
+  }
 
   @Post()
   public async register(@Response() res, @Body() participant: CreateParticipantDto) {
