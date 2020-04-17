@@ -26,6 +26,24 @@ export class ParticipantsController {
     return res.json(participants);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  public async show(
+    @Param('id', ParseIntPipe) participantId: number,
+    @Response() res
+  ) {
+    const participant = await this.participantsService.findOne(participantId);
+
+    if (!participant) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        error: 'Not found',
+        message: 'Participant not found',
+      })
+    }
+
+    return res.json(await this.participantsService.findOne(participantId));
+  }
+
   @Post()
   public async register(@Response() res, @Body() participant: CreateParticipantDto) {
     const result = await this.participantsService.register(participant);
