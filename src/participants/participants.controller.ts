@@ -6,10 +6,13 @@ import {
   HttpStatus,
   Get,
   UseGuards,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UpdateParticipantDto } from './dtos/update-participant.dto';
 
 @Controller('participants')
 export class ParticipantsController {
@@ -32,5 +35,24 @@ export class ParticipantsController {
     }
 
     return res.status(HttpStatus.OK).json(result);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id')
+  public async update(
+    @Param('id', ParseIntPipe) participantId: number,
+    @Response() res,
+    @Body() participantObject: UpdateParticipantDto
+  ) {
+    const participant = await this.participantsService.findOne(participantId);
+
+    if (!participant) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        error: "Participant not found",
+      });
+    }
+
+    const newParticipant = await this.participantsService.update(participantId, participantObject);
+    return res.json(newParticipant);
   }
 }
