@@ -62,18 +62,23 @@ export class ParticipantsService implements IParticipantService {
   ): Promise<Participant> {
     const { email } = participantDto;
 
-    let participant = await this.participantRepository
-      .findOne({ where: { email } });
+    let participant: Participant;
 
-    if (participant.id !== id) {
-      throw new HttpException(
-        'This email is already taken.',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (email) {
+      participant = await this.participantRepository
+        .findOne({ where: { email } });
+
+      if (participant && participant.id !== id) {
+        throw new HttpException(
+          'This email is already taken.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     }
 
-    participant = this.participantRepository.create(participantDto);
-    return await this.participantRepository.save(participant);
+    await this.participantRepository.update(id, participantDto);
+
+    return await this.participantRepository.findOne(id);
   }
 
   async delete(id: number): Promise<void> {
