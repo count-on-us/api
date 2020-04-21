@@ -1,4 +1,5 @@
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 
@@ -8,6 +9,14 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
+  @ApiResponse({
+    status: 200,
+    description: 'The data of the user owner of the token used in this request.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'The requester is unauthorized to make this request.',
+  })
   getProfile(@Request() req) {
     return req.user;
   }
