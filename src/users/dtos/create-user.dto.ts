@@ -7,6 +7,7 @@ import {
   IsNumberString,
   MaxLength,
 } from 'class-validator';
+import { UserProfession } from '../user-profession.enum';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -26,11 +27,16 @@ export class CreateUserDto {
   })
   readonly email: string;
 
-  @IsIn(['Psicólogo', 'Psicanalista', 'Psiquiatra'])
+  @IsIn([
+    UserProfession.Psychiatrist,
+    UserProfession.Psychoanalyst,
+    UserProfession.Psychologist,
+  ])
   @IsNotEmpty()
   @ApiProperty({
     description: 'The user profession.',
     example: 'Psicólogo',
+    enum: UserProfession,
   })
   readonly profession: string;
 
