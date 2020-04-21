@@ -7,12 +7,12 @@ import {
   Body,
   Request,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { LoginUserDto } from '../users/dtos/login-user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -39,8 +39,8 @@ export class AuthController {
   }
 
   @Post('login')
-  @UseGuards(AuthGuard('local'))
-    @ApiResponse({
+  @UseGuards(LocalAuthGuard)
+  @ApiResponse({
     status: 200,
     description: 'The token was successfully created.',
   })
