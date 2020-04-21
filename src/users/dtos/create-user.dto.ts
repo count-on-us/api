@@ -57,7 +57,7 @@ export class CreateUserDto {
   })
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The user password',
+    description: 'The user password.',
     example: '123p@assWord',
   })
   readonly password: string;
