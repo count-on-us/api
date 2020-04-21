@@ -1,5 +1,5 @@
 export enum UserProfession {
-  Psychologist = 'Pisicólogo',
+  Psychologist = 'Psicólogo',
   Psychoanalyst = 'Psicanalista',
   Psychiatrist = 'Psiquiatra',
 }
