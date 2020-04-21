@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Count on Us API')
     .setDescription('The Cout on Us API documentation')
     .setVersion('1.0')
