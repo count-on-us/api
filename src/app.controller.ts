@@ -1,9 +1,10 @@
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 
 @Controller()
+@ApiBearerAuth()
 export class AppController {
   constructor(private authService: AuthService) {}
 
