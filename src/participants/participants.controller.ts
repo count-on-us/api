@@ -9,13 +9,15 @@ import {
   Param,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UpdateParticipantDto } from './dtos/update-participant.dto';
 
 @Controller('participants')
+@ApiBearerAuth()
+@ApiTags('participant')
 export class ParticipantsController {
   constructor(private readonly participantsService: ParticipantsService) {}
 
