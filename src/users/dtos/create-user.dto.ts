@@ -46,6 +46,7 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'The user license number.',
     example: '123456/SP',
+    maxLength: 100,
   })
   readonly licenseNumber: string;
 
@@ -55,6 +56,7 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'The user phone.',
     example: '11999999999',
+    maxLength: 30,
   })
   readonly phone: string;
 
