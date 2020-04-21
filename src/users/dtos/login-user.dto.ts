@@ -5,6 +5,7 @@ export class LoginUserDto {
 	@IsEmail()
 	@ApiProperty({
 		description: 'The user email.',
+		example: 'user@domain.com',
 	})
 	readonly email: string;
 
