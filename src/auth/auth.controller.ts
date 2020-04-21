@@ -11,10 +11,11 @@ import { LoginUserDto } from '../users/dtos/login-user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
+@ApiTags('user')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
