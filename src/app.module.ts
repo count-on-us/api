@@ -9,6 +9,7 @@ import configuration from './config/configuration';
 import { User } from './users/user.entity';
 import { ParticipantsModule } from './participants/participants.module';
 import { Participant } from './participants/participant.entity';
+import { RecaptchaModule } from './recaptcha/recaptcha.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { Participant } from './participants/participant.entity';
       }),
       inject: [ConfigService],
     }),
-    ParticipantsModule
+    ParticipantsModule,
+    RecaptchaModule
   ],
   controllers: [AppController],
   providers: [AppService],
