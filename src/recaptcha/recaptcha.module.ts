@@ -3,6 +3,7 @@ import { RecaptchaService } from './recaptcha.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [RecaptchaService]
+  providers: [RecaptchaService],
+  exports: [RecaptchaService],
 })
 export class RecaptchaModule {}
