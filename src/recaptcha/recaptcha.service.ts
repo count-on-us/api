@@ -11,16 +11,23 @@ export class RecaptchaService {
 
   async validateCapcha(responseToken: string): Promise<IRecaptchaApiResponse>
   {
-    const response = await this.httpService.post(
+    const response = await this.httpService.get(
       'https://www.google.com/recaptcha/api/siteverify',
       {
-        secret: this.configService.get('googleApiKey'),
-        response: responseToken,
+        params: {
+          secret: this.configService.get('googleApiKey'),
+          response: responseToken,
+        },
       }
     ).toPromise();
 
-    console.log(response);
+    const recaptchaResponse = {
+      success: response.data.success,
+      challengeTs: response.data.challenge_ts,
+      hostname: response.data.hostname,
+      errorCodes: response.data['error-codes'],
+    };
 
-    return response.data;
+    return recaptchaResponse;
   }
 }
