@@ -7,6 +7,7 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './passport/jwt.strategy';
 import { AuthController } from './auth.controller';
+import { RecaptchaModule } from 'src/recaptcha/recaptcha.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthController } from './auth.controller';
       inject: [ConfigService],
     }),
     UsersModule,
+    RecaptchaModule,
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
