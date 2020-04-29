@@ -69,4 +69,11 @@ export class CreateUserDto {
     example: '123p@assWord',
   })
   readonly password: string;
+
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Recaptcha response token from Google reCAPTCHA.',
+    example: '',
+  })
+  readonly responseToken: string;
 }
