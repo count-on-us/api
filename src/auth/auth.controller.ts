@@ -34,7 +34,7 @@ export class AuthController {
     description: 'There are some validations errors.',
   })
   public async register(@Response() res, @Body() user: CreateUserDto){
-    const recaptchaResponse = await this.recaptchaService.validateCapcha(user.responseToken);
+    const recaptchaResponse = await this.recaptchaService.validateCapcha(user.recaptcha);
 
     if (!recaptchaResponse.success) {
       return res.status(HttpStatus.BAD_REQUEST).json(recaptchaResponse.errorCodes);

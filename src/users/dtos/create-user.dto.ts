@@ -75,5 +75,5 @@ export class CreateUserDto {
     description: 'Recaptcha response token from Google reCAPTCHA.',
     example: '',
   })
-  readonly responseToken: string;
+  readonly recaptcha: string;
 }
