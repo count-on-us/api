@@ -1,6 +1,7 @@
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
   secret: process.env.SECRET,
+  googleApiKey: process.env.RECAPTCHA_API_KEY,
   database: {
     type: 'postgres',
     host: process.env.DB_HOST,
