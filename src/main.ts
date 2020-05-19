@@ -9,7 +9,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('Count on Us API')
-    .setDescription('The Cout on Us API documentation')
+    .setDescription('The Count on Us API documentation')
     .setVersion('1.0')
     .addTag('participant')
     .addTag('user')
