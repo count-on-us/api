@@ -12,7 +12,7 @@ import {
 import { ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dtos/create-participant.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateParticipantDto } from './dtos/update-participant.dto';
 
 @Controller('participants')

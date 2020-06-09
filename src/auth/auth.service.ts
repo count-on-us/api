@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interfaces/user.interface';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
-import { CreateUserDto } from 'src/users/dtos/create-user.dto';
+import { CreateUserDto } from '../users/dtos/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

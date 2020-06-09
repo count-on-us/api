@@ -10,10 +10,10 @@ import {
 import { LoginUserDto } from '../users/dtos/login-user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
-import { CreateUserDto } from 'src/users/dtos/create-user.dto';
+import { CreateUserDto } from '../users/dtos/create-user.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth.guard';
-import { RecaptchaService } from 'src/recaptcha/recaptcha.service';
+import { RecaptchaService } from '../recaptcha/recaptcha.service';
 
 @Controller('auth')
 @ApiTags('user')
