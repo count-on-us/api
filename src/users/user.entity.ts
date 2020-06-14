@@ -11,6 +11,15 @@ import { IUser } from './interfaces/user.interface';
 export class User {
   private readonly saltRounds: number;
 
+  constructor(email: string, password: string, name: string, profesion: string, licenseNumber: string, phone: string) {
+    this.email = email;
+    this.password = password;
+    this.name = name;
+    this.profession = profesion;
+    this.licenseNumber = licenseNumber;
+    this.phone = phone;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
