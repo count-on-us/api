@@ -67,7 +67,7 @@ describe('UsersService', () => {
   });
 
   describe('findByEmail', () => {
-    it('should return one user', () => {
+    it('should return one user by email', () => {
       const repoSpy = jest.spyOn(repo, 'findOne');
 
       expect(service.findByEmail('email@test.com')).resolves.toEqual(oneUser);
