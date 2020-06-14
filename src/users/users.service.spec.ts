@@ -73,6 +73,16 @@ describe('UsersService', () => {
       expect(service.findByEmail('email@test.com')).resolves.toEqual(oneUser);
 
       expect(repoSpy).toBeCalledWith({email: 'email@test.com'});
-    })
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return one user by id', () => {
+      const repoSpy = jest.spyOn(repo, 'findOne');
+
+      expect(service.findOne(42)).resolves.toEqual(oneUser);
+
+      expect(repoSpy).toBeCalledWith(42);
+    });
   });
 });
