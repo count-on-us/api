@@ -34,6 +34,7 @@ const oneUser = new User(
 
 describe('UsersService', () => {
   let service: UsersService;
+  let repo: Repository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
