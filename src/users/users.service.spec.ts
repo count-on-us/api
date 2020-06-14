@@ -21,7 +21,7 @@ const usersArray = [
     '123456/BA',
     '74999999999'
   )
-]
+];
 
 describe('UsersService', () => {
   let service: UsersService;
