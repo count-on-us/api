@@ -86,11 +86,9 @@ describe('UsersService', () => {
 
   describe('findOne', () => {
     it('should return one user by id', () => {
-      const repoSpy = jest.spyOn(repo, 'findOne');
-
       expect(service.findOne(42)).resolves.toEqual(oneUser);
 
-      expect(repoSpy).toBeCalledWith(42);
+      expect(repo.findOne).toBeCalledWith(42);
     });
   });
 
