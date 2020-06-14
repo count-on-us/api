@@ -23,6 +23,15 @@ const usersArray = [
   )
 ];
 
+const oneUser = new User(
+  'test3@test.com',
+  '123456',
+  'Test User 3',
+  'Psicólogo',
+  '123456/BA',
+  '74999999999'
+);
+
 describe('UsersService', () => {
   let service: UsersService;
 
