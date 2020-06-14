@@ -45,6 +45,14 @@ describe('UsersService', () => {
           useValue: {
             find: jest.fn().mockResolvedValue(usersArray),
             findOne: jest.fn().mockResolvedValue(oneUser),
+            create: jest.fn().mockReturnValue(oneUser),
+            save: jest.fn().mockReturnValue(oneUser),
+            // as these do not actually use their return values in our sample
+            // we just make sure that their resolee is true to not crash
+            update: jest.fn().mockResolvedValue(true),
+            // as these do not actually use their return values in our sample
+            // we just make sure that their resolee is true to not crash
+            delete: jest.fn().mockRejectedValue(true),
           }
         }
       ],
@@ -83,6 +91,27 @@ describe('UsersService', () => {
       expect(service.findOne(42)).resolves.toEqual(oneUser);
 
       expect(repoSpy).toBeCalledWith(42);
+    });
+  });
+
+  describe('delete', () => {
+    it('should return {deleted: true}', () => {
+      expect(service.delete(42)).resolves.toEqual({ deleted: true });
+    });
+
+    it('should return {deleted: false, message: err.message}', () => {
+      const repoSpy = jest
+        .spyOn(repo, 'delete')
+        .mockRejectedValueOnce(new Error('Bad Delete Method.'));
+
+      expect(service.delete(17)).resolves.toEqual({
+        deleted: false,
+        message: 'Bad Delete Method.',
+      });
+
+      expect(repoSpy).toBeCalledWith(17);
+
+      expect(repoSpy).toBeCalledTimes(1);
     });
   });
 });
