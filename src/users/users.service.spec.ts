@@ -28,7 +28,15 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
+      providers: [
+        UsersService,
+        {
+          provide: getRepositoryToken(User),
+          useValue: {
+            find: jest.fn().mockResolvedValue(usersArray),
+          }
+        }
+      ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
