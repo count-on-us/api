@@ -46,7 +46,7 @@ describe('UsersService', () => {
             find: jest.fn().mockResolvedValue(usersArray),
             findOne: jest.fn().mockResolvedValue(oneUser),
             create: jest.fn().mockReturnValue(oneUser),
-            save: jest.fn().mockReturnValue(oneUser),
+            save: jest.fn().mockResolvedValue(oneUser),
             // as these do not actually use their return values in our sample
             // we just make sure that their resolee is true to not crash
             update: jest.fn().mockResolvedValue(true),
@@ -110,6 +110,37 @@ describe('UsersService', () => {
       expect(repoSpy).toBeCalledWith(17);
 
       expect(repoSpy).toBeCalledTimes(1);
+    });
+  });
+
+  describe('register', () => {
+    it('should register one new user', async () => {
+      const testUser = {
+        email: oneUser.email,
+        licenseNumber: oneUser.licenseNumber,
+        name: oneUser.name,
+        password: oneUser.password,
+        phone: oneUser.phone,
+        profession: oneUser.profession,
+        recaptcha: 'long token',
+      };
+
+      jest.spyOn(repo, 'findOne')
+        .mockResolvedValueOnce(null);
+
+      await expect(service.register(testUser))
+        .resolves
+        .toEqual(oneUser);
+
+      expect(repo.findOne).toBeCalledTimes(1);
+
+      expect(repo.create).toBeCalledTimes(1);
+
+      expect(repo.create).toBeCalledWith(testUser);
+
+      expect(repo.save).toBeCalledTimes(1);
+
+      expect(repo.save).toBeCalledWith(oneUser);
     });
   });
 });
